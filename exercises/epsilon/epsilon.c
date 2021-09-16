@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <limits.h>
 #include <float.h>
+#include "equal.h"
 
-int exercise_1(void){
+void exercise_1(void){
 	printf("\nExercise 1\n");
 
 	// Part i)
@@ -82,7 +83,7 @@ int exercise_1(void){
 }	
 
 
-int exercise_2(void){
+void exercise_2(void){
 	printf("\nExercise 2\n");
 
 	// Part i)
@@ -118,9 +119,17 @@ int exercise_2(void){
 	printf("With doubles you get the same result whether you sum up or down. This result is also higher and thus more correct.\n");
 }
 
+void exercise_3(void){
+	double a = 5;
+	double b = 5.1;
+	double tau = 1;
+	double epsilon = 1;
+	int answer = equal(a, b, tau, epsilon);	
+	printf("answer = %i\n", answer);
+}
 
 int main(void){
-	exercise_2();
+	exercise_3();
 	return 0;
 }
 

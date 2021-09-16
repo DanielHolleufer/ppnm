@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O -std=gnu11
+CFLAGS = -Wall -O -std=gnu11
 LDLIBS = -lm
 
 default: out.txt
@@ -8,13 +8,16 @@ default: out.txt
 out.txt: epsilon
 	./epsilon > out.txt
 
-epsilon: epsilon.o
-	$(CC) -o epsilon epsilon.o $(LDLIBS)
+epsilon: epsilon.o equal.o
+	$(CC) -o epsilon epsilon.o equal.o $(LDLIBS)
 
 epsilon.o: epsilon.c
-	$(CC) $(CLFAGS) -c -fwrapv epsilon.c
+	$(CC) $(CFLAGS) -c -fwrapv epsilon.c
+
+equal.o: equal.c
+	$(CC) $(CFLAGS) -c equal.c
 
 .PHONY: clean
 clean:
-	$(RM) epsilon.o epsilon out.txt
+	$(RM) *.o epsilon out.txt
 
