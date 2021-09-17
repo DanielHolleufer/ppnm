@@ -119,6 +119,7 @@ void exercise_2(void){
 	printf("With doubles you get the same result whether you sum up or down. This result is also higher and thus more correct.\n");
 }
 
+
 void exercise_3(void){
 	double a = 5;
 	double b = 5.1;
@@ -128,8 +129,60 @@ void exercise_3(void){
 	printf("answer = %i\n", answer);
 }
 
+
+void name_digit(int i){
+	switch(i){
+		case 0:
+			printf("Zero\n");
+			break;
+
+		case 1:
+			printf("One\n");
+			break;
+
+		case 2:
+			printf("Two\n");
+			break;
+
+		case 3:
+			printf("Three\n");
+			break;
+
+		case 4:
+			printf("Four\n");
+			break;
+
+		case 5:
+			printf("Five\n");
+			break;
+			
+		case 6:
+			printf("Six\n");
+			break;
+
+		case 7:
+			printf("Seven\n");
+			break;
+
+		case 8:
+			printf("Eight\n");
+			break;
+
+		case 9:
+			printf("Nine\n");
+			break;
+	}
+}
+
+
+void exercise_4(void){
+	int i = 4;
+	name_digit(i);
+}
+
+
 int main(void){
-	exercise_3();
+	exercise_4();
 	return 0;
 }
 
