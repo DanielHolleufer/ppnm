@@ -17,6 +17,7 @@ int     komplex_equal     (komplex a, komplex b, double acc, double eps); /* ret
 komplex komplex_exp       (komplex z);                                    /* returns exp(z) */
 komplex komplex_cos       (komplex z);                                    /* returns cos(z) */
 komplex komplex_sin       (komplex z);                                    /* returns sin(x) */
+komplex komplex_sqrt      (komplex z);                                    /* returns sqrt(z) with positive real part */
 
 #endif
 

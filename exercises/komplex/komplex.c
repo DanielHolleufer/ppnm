@@ -27,7 +27,7 @@ komplex komplex_sub (komplex a, komplex b) {
 }
 
 komplex komplex_mul (komplex a, komplex b) {
-	komplex result = { a.re * b.re - a.im * b.im, a.re * b.im + a.im + b.re };
+	komplex result = { a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re };
 	return result;
 }
 
@@ -43,7 +43,7 @@ komplex komplex_conjugate (komplex z) {
 }
 
 double komplex_abs (komplex z) {
-	double result = pow(z.re, 2) + pow(z.im, 2);
+	double result = sqrt(pow(z.re, 2) + pow(z.im, 2));
 	return result;
 }
 
@@ -62,28 +62,29 @@ komplex komplex_exp (komplex z) {
 }
 
 komplex komplex_cos (komplex z) {
-	komplex result = { 0.5 * cos(z.im) * (exp(z.re) + exp(-z.re)), 0.5 * sin(z.im) * (exp(z.re) - exp(-z.re)) };
+	komplex result = { 0.5 * (exp(-z.im) + exp(z.im)) * cos(z.re), 0.5 * (exp(-z.im) - exp(z.im)) * sin(z.re) };
 	return result;
 }
 
 komplex komplex_sin (komplex z) {
-	komplex result = { 0.5 * sin(z.im) * (exp(z.re) + exp(-z.re)), 0.5 * cos(z.im) * (exp(-z.re) - exp(z.re)) };
+	komplex result = { 0.5 * (exp(-z.im) + exp(z.im)) * sin(z.re), 0.5 * (exp(z.im) - exp(-z.im)) * cos(z.re) };
 	return result;
 }
 
 komplex komplex_sqrt (komplex z) {
 	if ( z.im == 0 ) {
-		komplex result = { sqrt(z.re), 0 };
-		return result;
+		if ( z.re >= 0 ) {
+			komplex result = { sqrt(z.re), 0 };
+			return result;
+		}
+		else {
+			komplex result = { 0, sqrt(-z.re) };
+			return result;
+		}
 	}
-	else if ( z.im > 0 ){
-		komplex result = { 0.5 * sqrt(z.re + sqrt(pow(z.re, 2) + pow(z.im, 2))),
-		                   0.5 * sqrt(-z.re + sqrt(pow(z.re, 2) + pow(z.im, 2))) };
-		return result;
-	}
-	else if ( z.im < 0 ) {
-		komplex result = { 0.5 * sqrt(z.re + sqrt(pow(z.re, 2) + pow(z.im, 2))),
-		                   0.5 * sqrt(-z.re + sqrt(pow(z.re, 2) + pow(z.im, 2))) };
+	else {
+		komplex result = { sqrt(0.5 * (z.re + sqrt(pow(z.re, 2) + pow(z.im, 2)))),
+		                   z.im / sqrt(pow(z.im, 2)) * sqrt(0.5 * (-z.re + sqrt(pow(z.re, 2) + pow(z.im, 2)))) };
 		return result;
 	}
 }
