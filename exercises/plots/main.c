@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<math.h>
 #include<gsl/gsl_sf_erf.h>
 #include<gsl/gsl_sf_gamma.h>
@@ -25,6 +26,7 @@ double mygamma(double x){
 
 int main(void){
     // Error function.
+    FILE * fperror = fopen("errordata.txt", "w");
     double x[32];
     int i;
     for (i = 0; i < 5; i++) {
@@ -39,23 +41,31 @@ int main(void){
     printf("%10s %10s %10s %10s\n", "Input", "math.h", "gsl", "custom");
     for (i = 0; i <= 31; i++) {
         printf("%10g %10g %10g %10g\n", x[i], erf(x[i]), gsl_sf_erf(x[i]), myerf(x[i]));
+        fprintf(fperror, "%10g %10g %10g %10g\n", x[i], erf(x[i]), gsl_sf_erf(x[i]), myerf(x[i]));
     }
     printf("\n");
+    fclose(fperror);
 
     // Gamma function.
+    FILE * fpgamma = fopen("gammadata.txt", "w");
     double y[10] = {-1.5, -0.5, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0};
     printf("Gamma function\n");
     printf("%10s %10s %10s %10s\n", "Input", "math.h", "gsl", "custom");
     for (i = 0; i < 10; i++) {
         printf("%10g %10g %10g %10g\n", y[i], tgamma(y[i]), gsl_sf_gamma(y[i]), mygamma(y[i]));
+        fprintf(fpgamma, "%10g %10g %10g %10g\n", y[i], tgamma(y[i]), gsl_sf_gamma(y[i]), mygamma(y[i]));
     }
     printf("\n");
+    fclose(fpgamma);
 
     // Logarithm of Gamma function.
+    FILE * fplngamma = fopen("lngammadata.txt", "w");
     printf("Logarithm of Gamma function\n");
     printf("%10s %10s %10s\n", "Input", "math.h", "gsl");
     for (i = 0; i < 10; i++) {
         printf("%10g %10g %10g\n", y[i], lgamma(y[i]), gsl_sf_lngamma(y[i]));
+        fprintf(fplngamma, "%10g %10g %10g\n", y[i], lgamma(y[i]), gsl_sf_lngamma(y[i]));
     }
+    fclose(fplngamma);
     return 0;
 }
